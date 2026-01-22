@@ -12,13 +12,15 @@ bot = telebot.TeleBot(API_TOKEN)
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
     keyboard = ReplyKeyboardMarkup()
-    btn1 = KeyboardButton("Понедельник")
-    btn2 = KeyboardButton("Вторник")
-    btn3 = KeyboardButton("Среда")
-    btn4 = KeyboardButton("Четверг")
-    btn5 = KeyboardButton("Пятница")
-    btn6 = KeyboardButton("Сегодня")
-    keyboard.add(btn1, btn2, btn3, btn4, btn5, btn6)
+    btn1 = KeyboardButton("Понедельник 🔵")
+    btn2 = KeyboardButton("Вторник 🟢")
+    btn3 = KeyboardButton("Среда 🟡")
+    btn4 = KeyboardButton("Четверг 🟠")
+    btn5 = KeyboardButton("Пятница 🔴")
+    btn6 = KeyboardButton("Все расписание 📋")
+    btn7 = KeyboardButton("На сегодня 📅")
+    btn8 = KeyboardButton("На завтра 📅")
+    keyboard.add(btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8)
     bot.reply_to(message, """Привет! 😊
 
 Я бот с расписанием 📅✨
@@ -33,12 +35,11 @@ def send_welcome(message):
 
 Или выбери:
 📋 Всё расписание
-🔄 Текущая неделя
 📅 На сегодня
 📅 На завтра
 """, reply_markup=keyboard)
 
-@bot.message_handler(func=lambda m: m.text == "Понедельник")
+@bot.message_handler(func=lambda m: m.text == "Понедельник 🔵")
 def send_welcome(message):
     bot.reply_to(message, """ПОНЕДЕЛЬНИК:
 
@@ -50,7 +51,7 @@ def send_welcome(message):
 6. География
 7. История""")
 
-@bot.message_handler(func=lambda m: m.text == "Вторник")
+@bot.message_handler(func=lambda m: m.text == "Вторник 🟢")
 def send_welcome(message):
     bot.reply_to(message, """ВТОРНИК:
 
@@ -62,7 +63,7 @@ def send_welcome(message):
 6. Литература
 7. Геометрия""")
     
-@bot.message_handler(func=lambda m: m.text == "Среда")
+@bot.message_handler(func=lambda m: m.text == "Среда 🟡")
 def send_welcome(message):
     bot.reply_to(message, """СРЕДА:
 
@@ -74,7 +75,7 @@ def send_welcome(message):
 6. Информатика
 7. Алгебра""")
 
-@bot.message_handler(func=lambda m: m.text == "Четверг")
+@bot.message_handler(func=lambda m: m.text == "Четверг 🟠")
 def send_welcome(message):
     bot.reply_to(message, """ЧЕТВЕРГ:
 
@@ -86,7 +87,7 @@ def send_welcome(message):
 6. Обществознание
 7. Проф орейнтация""")
     
-@bot.message_handler(func=lambda m: m.text == "Пятница")
+@bot.message_handler(func=lambda m: m.text == "Пятница 🔴")
 def send_welcome(message):
     bot.reply_to(message, """ПЯТНИЦА:
 
@@ -98,7 +99,7 @@ def send_welcome(message):
 6. Алгебра
 7. Информатика""")
 
-@bot.message_handler(func=lambda m: m.text == "Сегодня")
+@bot.message_handler(func=lambda m: m.text == "На сегодня 📅")
 def send_welcome(message):
     today = date.today().weekday()
     if today == 0:
@@ -153,6 +154,115 @@ def send_welcome(message):
 7. Информатика""")
     else:
         bot.reply_to(message, "Сегодня выходной")
+
+@bot.message_handler(func=lambda m: m.text == "На завтра 📅")
+def send_welcome(message):
+    today = date.today().weekday()
+    if today == 6:
+        bot.reply_to(message, """ПОНЕДЕЛЬНИК:
+
+1. РОВ
+2. Химия
+3. Алгебра
+4. Технология
+5. Английский язык
+6. География
+7. История""")
+    elif today == 0:
+        bot.reply_to(message, """ВТОРНИК:
+
+1. ОБЗР
+2. География
+3. Физика
+4. Музыка
+5. Биология
+6. Литература
+7. Геометрия""")
+    elif today == 1:
+        bot.reply_to(message, """СРЕДА:
+
+1. Физ-ра
+2. Ангилийский язык
+3. Химия
+4. Русский язык
+5. История
+6. Информатика
+7. Алгебра""")
+    elif today == 2:
+        bot.reply_to(message, """ЧЕТВЕРГ:
+
+1. Геометрия
+2. Литература
+3. ВиС
+4. Русский язык
+5. Физика
+6. Обществознание
+7. Проф орейнтация""")
+    elif today == 3:
+        bot.reply_to(message, """ПЯТНИЦА:
+
+1. Русский язык
+2. Биология
+3. Русский язык
+4. Английский язык
+5. Физ-ра
+6. Алгебра
+7. Информатика""")
+    else:
+        bot.reply_to(message, "Завтра выходной")
+
+@bot.message_handler(func=lambda m: m.text == "Все расписание 📋")
+def send_welcome(message):
+    bot.reply_to(message, """ПОНЕДЕЛЬНИК: 🔵
+
+1. РОВ
+2. Химия
+3. Алгебра
+4. Технология
+5. Английский язык
+6. География
+7. История
+
+ВТОРНИК: 🟢
+
+1. ОБЗР
+2. География
+3. Физика
+4. Музыка
+5. Биология
+6. Литература
+7. Геометрия
+                 
+СРЕДА: 🟡
+
+1. Физ-ра
+2. Ангилийский язык
+3. Химия
+4. Русский язык
+5. История
+6. Информатика
+7. Алгебра
+                 
+ЧЕТВЕРГ: 🟠
+
+1. Геометрия
+2. Литература
+3. ВиС
+4. Русский язык
+5. Физика
+6. Обществознание
+7. Проф орейнтация
+                 
+ПЯТНИЦА: 🔴
+
+1. Русский язык
+2. Биология
+3. Русский язык
+4. Английский язык
+5. Физ-ра
+6. Алгебра
+7. Информатика""")
+
 # 4. Запуск бота
 if __name__ == '__main__':
     print("Бот запущен...")
